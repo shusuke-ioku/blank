@@ -1,2 +1,0 @@
-[console_scripts]
-blank = blank_cli.cli:main
