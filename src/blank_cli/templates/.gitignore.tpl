@@ -1,0 +1,11 @@
+.DS_Store
+.venv/
+.tmp/
+__pycache__/
+*.pyc
+analysis/output/figures/*
+analysis/output/tables/*
+analysis/output/results/*
+!analysis/output/figures/.gitkeep
+!analysis/output/tables/.gitkeep
+!analysis/output/results/.gitkeep

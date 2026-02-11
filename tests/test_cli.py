@@ -1,0 +1,71 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from blank_cli.cli import main
+
+
+def test_init_creates_scaffold(tmp_path: Path) -> None:
+    target = tmp_path / "demo"
+
+    rc = main(["init", str(target), "--project-name", "Demo Project"])
+
+    assert rc == 0
+    assert (target / "analysis/scripts/00_setup.R").exists()
+    assert (target / "paper/paper.typ").exists()
+    assert (target / ".codex/project.md").exists()
+    assert (target / ".claude/settings.local.json").exists()
+    assert "Demo Project" in (target / "README.md").read_text(encoding="utf-8")
+    assert "Introduction" in (target / "paper/paper.typ").read_text(encoding="utf-8")
+
+
+def test_init_no_agents(tmp_path: Path) -> None:
+    target = tmp_path / "demo"
+
+    rc = main(["init", str(target), "--no-agents"])
+
+    assert rc == 0
+    assert not (target / ".codex").exists()
+    assert not (target / ".claude").exists()
+
+
+def test_conflict_without_force(tmp_path: Path) -> None:
+    target = tmp_path / "demo"
+    target.mkdir(parents=True)
+    readme = target / "README.md"
+    readme.write_text("custom", encoding="utf-8")
+
+    rc = main(["init", str(target)])
+
+    assert rc == 3
+    assert readme.read_text(encoding="utf-8") == "custom"
+
+
+def test_force_replaces_conflict(tmp_path: Path) -> None:
+    target = tmp_path / "demo"
+    target.mkdir(parents=True)
+    readme = target / "README.md"
+    readme.write_text("custom", encoding="utf-8")
+
+    rc = main(["init", str(target), "--force", "--project-name", "Forced"])
+
+    assert rc == 0
+    assert "Forced" in readme.read_text(encoding="utf-8")
+
+
+def test_dry_run_writes_nothing(tmp_path: Path) -> None:
+    target = tmp_path / "demo"
+
+    rc = main(["init", str(target), "--dry-run"])
+
+    assert rc == 0
+    assert not (target / "README.md").exists()
+
+
+def test_init_blank_paper_template(tmp_path: Path) -> None:
+    target = tmp_path / "demo"
+
+    rc = main(["init", str(target), "--paper-template", "blank", "--project-name", "Bare"])
+
+    assert rc == 0
+    assert (target / "paper/paper.typ").read_text(encoding="utf-8").strip() == "# Bare"

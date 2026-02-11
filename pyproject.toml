@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blank-agentic-cli"
+version = "0.1.0"
+description = "CLI scaffolder for agentic AI research projects"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Shusuke Ioku" }
+]
+license = { text = "MIT" }
+keywords = ["cli", "scaffold", "research", "agentic-ai", "typst"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "Topic :: Software Development :: Code Generators",
+  "Topic :: Utilities",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+
+[project.urls]
+Homepage = "https://github.com/shusuke-ioku/blank"
+Repository = "https://github.com/shusuke-ioku/blank"
+Issues = "https://github.com/shusuke-ioku/blank/issues"
+
+[project.scripts]
+blank = "blank_cli.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+blank_cli = [
+  "templates/**/*.tpl",
+  "templates/.gitignore.tpl",
+  "templates/.here.tpl",
+  "templates/analysis/output/figures/.gitkeep.tpl",
+  "templates/analysis/output/tables/.gitkeep.tpl",
+  "templates/analysis/output/results/.gitkeep.tpl",
+  "templates/.codex/*.tpl",
+  "templates/.claude/*.tpl",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
