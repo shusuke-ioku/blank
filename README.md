@@ -40,7 +40,9 @@ If `--paper-template` is omitted and you run in a terminal, `blank init` asks yo
 - `analysis/output/`
 - `paper/`
 - `idea/`
-- `.codex/` and `.claude/` by default
+- `.codex/project.md` with default agent rules
+- `.codex/skills/` starter skill set and install scripts
+- `.claude/` defaults
 
 ## Development
 

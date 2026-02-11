@@ -43,6 +43,8 @@ blank_cli = [
   "templates/**/*.tpl",
   "templates/.gitignore.tpl",
   "templates/.here.tpl",
+  "templates/.codex/install_*.tpl",
+  "templates/.codex/skills/*/*.tpl",
   "templates/analysis/output/figures/.gitkeep.tpl",
   "templates/analysis/output/tables/.gitkeep.tpl",
   "templates/analysis/output/results/.gitkeep.tpl",

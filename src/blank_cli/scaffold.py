@@ -44,6 +44,12 @@ TEMPLATE_FILES: List[str] = [
     "analysis/output/results/.gitkeep.tpl",
     ".codex/project.md.tpl",
     ".codex/config.toml.tpl",
+    ".codex/install_repo_skills.sh.tpl",
+    ".codex/install_curated_skills.sh.tpl",
+    ".codex/skills/jp-pol-sci-r-pipeline/SKILL.md.tpl",
+    ".codex/skills/typst-paper-sync-check/SKILL.md.tpl",
+    ".codex/skills/adversarial-brainstorm-recorder/SKILL.md.tpl",
+    ".codex/skills/socsci-critical-reader/SKILL.md.tpl",
     ".claude/settings.local.json.tpl",
 ]
 
@@ -187,5 +193,7 @@ def apply_actions(
         if not dry_run:
             item.path.parent.mkdir(parents=True, exist_ok=True)
             item.path.write_text(content, encoding="utf-8")
+            if item.path.suffix == ".sh":
+                item.path.chmod(0o755)
 
     return counts

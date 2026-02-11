@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import stat
 from pathlib import Path
 
 from blank_cli.cli import main
@@ -14,9 +15,15 @@ def test_init_creates_scaffold(tmp_path: Path) -> None:
     assert (target / "analysis/scripts/00_setup.R").exists()
     assert (target / "paper/paper.typ").exists()
     assert (target / ".codex/project.md").exists()
+    assert (target / ".codex/install_repo_skills.sh").exists()
+    assert (target / ".codex/install_curated_skills.sh").exists()
+    assert (target / ".codex/skills/jp-pol-sci-r-pipeline/SKILL.md").exists()
     assert (target / ".claude/settings.local.json").exists()
     assert "Demo Project" in (target / "README.md").read_text(encoding="utf-8")
     assert "Introduction" in (target / "paper/paper.typ").read_text(encoding="utf-8")
+    assert "Rules For Every Agent" in (target / ".codex/project.md").read_text(encoding="utf-8")
+    mode = (target / ".codex/install_repo_skills.sh").stat().st_mode
+    assert mode & stat.S_IXUSR
 
 
 def test_init_no_agents(tmp_path: Path) -> None:
