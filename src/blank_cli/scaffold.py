@@ -42,7 +42,6 @@ TEMPLATE_FILES: List[str] = [
     ".codex/config.toml.tpl",
     ".codex/install_repo_skills.sh.tpl",
     ".codex/install_curated_skills.sh.tpl",
-    ".codex/skills/jp-pol-sci-r-pipeline/SKILL.md.tpl",
     ".codex/skills/typst-paper-sync-check/SKILL.md.tpl",
     ".codex/skills/adversarial-brainstorm-recorder/SKILL.md.tpl",
     ".codex/skills/socsci-critical-reader/SKILL.md.tpl",

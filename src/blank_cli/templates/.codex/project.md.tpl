@@ -66,7 +66,6 @@ Rscript analysis/scripts/30_results_main.R
 │   ├── install_repo_skills.sh
 │   ├── install_curated_skills.sh
 │   └── skills/
-│       ├── jp-pol-sci-r-pipeline/
 │       ├── typst-paper-sync-check/
 │       ├── adversarial-brainstorm-recorder/
 │       └── socsci-critical-reader/

@@ -12,7 +12,7 @@ fi
 
 mkdir -p "$DEST_DIR"
 
-for skill in jp-pol-sci-r-pipeline typst-paper-sync-check adversarial-brainstorm-recorder socsci-critical-reader; do
+for skill in typst-paper-sync-check adversarial-brainstorm-recorder socsci-critical-reader; do
   src="$SRC_DIR/$skill"
   dest="$DEST_DIR/$skill"
 
