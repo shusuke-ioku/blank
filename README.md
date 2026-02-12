@@ -76,13 +76,18 @@ blank init my-project --project-name "My Project"
 blank init my-project --dry-run
 blank init my-project --force
 blank init my-project --no-agents
-blank init my-project --paper-template latex
-blank init my-project --paper-template blank
 ```
 
-If `--paper-template` is omitted and you run in a terminal, `blank init` asks you to choose:
-- `latex`: latex-like Typst starter (generates `paper/aesthetics.typ` + `paper/paper.typ`)
-- `blank`: minimal empty Typst file
+By default, `paper/paper.typ` imports TeXst:
+
+```typst
+#import "@preview/texst:0.1.0": paper, nneq, caption-note, table-note, theorem, proof, prop, lem, rem, ass, cmain, csub, caption-with-note
+```
+
+TeXst repository:
+- https://github.com/shusuke-ioku/texst
+
+`paper/aesthetics.typ` is intentionally generated as a blank file so you can add custom style settings.
 
 ## Generated scaffold
 

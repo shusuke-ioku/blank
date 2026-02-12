@@ -29,38 +29,13 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Skip generating .codex/ and .claude/ files",
     )
-    init_parser.add_argument(
-        "--paper-template",
-        choices=["latex", "blank"],
-        help="Paper template style for paper/paper.typ (latex generates TeXst-style files)",
-    )
-
     return parser
-
-
-def _prompt_paper_template() -> str:
-    print("Choose paper template for paper/paper.typ:")
-    print("1) latex (TeXst-style layout + aesthetics.typ) [recommended]")
-    print("2) blank (empty starter file)")
-    while True:
-        choice = input("Enter 1 or 2 [1]: ").strip()
-        if choice in ("", "1"):
-            return "latex"
-        if choice == "2":
-            return "blank"
-        print("Invalid choice. Please enter 1 or 2.")
 
 
 def _command_init(args: argparse.Namespace) -> int:
     target_dir = Path(args.target_dir).expanduser().resolve()
     project_name = args.project_name or target_dir.name
     include_agents = not args.no_agents
-    paper_template = args.paper_template
-    if paper_template is None:
-        if sys.stdin.isatty():
-            paper_template = _prompt_paper_template()
-        else:
-            paper_template = "latex"
 
     templates_dir = resources.files("blank_cli") / "templates"
     templates_path = Path(str(templates_dir))
@@ -73,7 +48,6 @@ def _command_init(args: argparse.Namespace) -> int:
             templates_dir=templates_path,
             project_name=project_name,
             include_agents=include_agents,
-            paper_template=paper_template,
             force=args.force,
         )
     except ScaffoldConflictError as exc:
@@ -86,13 +60,11 @@ def _command_init(args: argparse.Namespace) -> int:
         templates_dir=templates_path,
         project_name=project_name,
         include_agents=include_agents,
-        paper_template=paper_template,
         dry_run=args.dry_run,
     )
 
     mode = "DRY RUN" if args.dry_run else "DONE"
     print(f"[{mode}] blank init -> {target_dir}")
-    print(f"paper_template={paper_template}")
     print(
         f"created_dirs={counts['created_dirs']} created_files={counts['created_files']} "
         f"replaced_files={counts['replaced_files']} skipped={counts['skipped']}"

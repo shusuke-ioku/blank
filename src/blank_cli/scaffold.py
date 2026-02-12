@@ -35,6 +35,7 @@ TEMPLATE_FILES: List[str] = [
     "analysis/scripts/30_results_main.R.tpl",
     "analysis/data/codebook.md.tpl",
     "paper/ref.bib.tpl",
+    "paper/aesthetics.typ.tpl",
     "analysis/output/figures/.gitkeep.tpl",
     "analysis/output/tables/.gitkeep.tpl",
     "analysis/output/results/.gitkeep.tpl",
@@ -48,15 +49,8 @@ TEMPLATE_FILES: List[str] = [
     ".claude/settings.local.json.tpl",
 ]
 
-PAPER_TEMPLATE_MAP = {
-    "latex": ("paper/paper_latex.typ.tpl", "paper/paper.typ"),
-    "blank": ("paper/paper_blank.typ.tpl", "paper/paper.typ"),
-}
-
-PAPER_EXTRA_TEMPLATES = {
-    "latex": ["paper/aesthetics.typ.tpl"],
-    "blank": [],
-}
+PAPER_TEMPLATE_SRC = "paper/paper_latex.typ.tpl"
+PAPER_TEMPLATE_OUT = "paper/paper.typ.tpl"
 
 
 def _render_template(content: str, variables: Dict[str, str]) -> str:
@@ -76,13 +70,8 @@ def _output_path_from_template(template_path: str) -> Path:
     return Path(template_path[:-4])
 
 
-def _effective_templates(paper_template: str) -> List[str]:
-    if paper_template not in PAPER_TEMPLATE_MAP:
-        raise ValueError(f"Unsupported paper template: {paper_template}")
-    if paper_template not in PAPER_EXTRA_TEMPLATES:
-        raise ValueError(f"Unsupported paper template: {paper_template}")
-    _paper_src, paper_out = PAPER_TEMPLATE_MAP[paper_template]
-    return TEMPLATE_FILES + PAPER_EXTRA_TEMPLATES[paper_template] + [f"{paper_out}.tpl"]
+def _effective_templates() -> List[str]:
+    return TEMPLATE_FILES + [PAPER_TEMPLATE_OUT]
 
 
 def plan_actions(
@@ -90,7 +79,6 @@ def plan_actions(
     templates_dir: Path,
     project_name: str,
     include_agents: bool,
-    paper_template: str,
     force: bool,
 ) -> List[ScaffoldAction]:
     variables = {
@@ -106,9 +94,8 @@ def plan_actions(
         else:
             actions.append(ScaffoldAction("create_dir", out_dir))
 
-    effective_templates = _effective_templates(paper_template)
-    paper_src, paper_out = PAPER_TEMPLATE_MAP[paper_template]
-    virtual_paths = {f"{paper_out}.tpl": paper_src}
+    effective_templates = _effective_templates()
+    virtual_paths = {PAPER_TEMPLATE_OUT: PAPER_TEMPLATE_SRC}
 
     for template_rel in effective_templates:
         source_template_rel = virtual_paths.get(template_rel, template_rel)
@@ -144,7 +131,6 @@ def apply_actions(
     templates_dir: Path,
     project_name: str,
     include_agents: bool,
-    paper_template: str,
     dry_run: bool,
 ) -> Dict[str, int]:
     variables = {
@@ -158,9 +144,8 @@ def apply_actions(
         "skipped": 0,
     }
 
-    effective_templates = _effective_templates(paper_template)
-    paper_src, paper_out = PAPER_TEMPLATE_MAP[paper_template]
-    virtual_paths = {f"{paper_out}.tpl": paper_src}
+    effective_templates = _effective_templates()
+    virtual_paths = {PAPER_TEMPLATE_OUT: PAPER_TEMPLATE_SRC}
     template_index = {}
     for template_rel in effective_templates:
         source_template_rel = virtual_paths.get(template_rel, template_rel)

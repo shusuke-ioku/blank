@@ -29,7 +29,11 @@ def test_init_creates_scaffold(tmp_path: Path) -> None:
     assert not (target / ".codex/skills/jp-pol-sci-r-pipeline/SKILL.md").exists()
     assert (target / ".claude/settings.local.json").exists()
     assert "Demo Project" in (target / "README.md").read_text(encoding="utf-8")
-    assert "Introduction" in (target / "paper/paper.typ").read_text(encoding="utf-8")
+    paper = (target / "paper/paper.typ").read_text(encoding="utf-8")
+    assert '@preview/texst:0.1.0' in paper
+    assert "Introduction" in paper
+    aesthetics = (target / "paper/aesthetics.typ").read_text(encoding="utf-8")
+    assert "intentionally blank" in aesthetics
     assert "Rules For Every Agent" in (target / ".codex/project.md").read_text(encoding="utf-8")
     assert "MCP Tooling" in (target / ".codex/project.md").read_text(encoding="utf-8")
     config = (target / ".codex/config.toml").read_text(encoding="utf-8")
@@ -80,13 +84,3 @@ def test_dry_run_writes_nothing(tmp_path: Path) -> None:
 
     assert rc == 0
     assert not (target / "README.md").exists()
-
-
-def test_init_blank_paper_template(tmp_path: Path) -> None:
-    target = tmp_path / "demo"
-
-    rc = main(["init", str(target), "--paper-template", "blank", "--project-name", "Bare"])
-
-    assert rc == 0
-    assert (target / "paper/paper.typ").read_text(encoding="utf-8").strip() == "# Bare"
-    assert not (target / "paper/aesthetics.typ").exists()
