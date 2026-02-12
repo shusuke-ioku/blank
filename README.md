@@ -4,6 +4,31 @@
 
 ## Install
 
+Recommended (handles `pipx ensurepath`, install, and verification):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shusuke-ioku/blank/main/scripts/install_blank.sh | bash
+```
+
+From GitHub package source (same installer with package override):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/shusuke-ioku/blank/main/scripts/install_blank.sh | bash -s -- git+https://github.com/shusuke-ioku/blank.git
+```
+
+From a local clone:
+
+```bash
+bash scripts/install_blank.sh
+```
+
+First-time `pipx` setup (one-time per machine):
+
+```bash
+pipx ensurepath
+exec $SHELL -l
+```
+
 From PyPI (after release):
 
 ```bash
@@ -14,6 +39,39 @@ From GitHub:
 
 ```bash
 pipx install git+https://github.com/shusuke-ioku/blank.git
+```
+
+## Post-install check
+
+```bash
+blank --help
+```
+
+If you see `bash: blank: command not found`, `pipx` likely installed correctly but your shell PATH is missing `~/.local/bin`.
+
+Quick fix for current shell:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+hash -r
+blank --help
+```
+
+Persist it:
+
+```bash
+# zsh (default on modern macOS)
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zprofile
+
+# bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bash_profile
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+```
+
+Optional:
+
+```bash
+pipx ensurepath
 ```
 
 ## Usage
@@ -30,7 +88,7 @@ blank init my-project --paper-template blank
 ```
 
 If `--paper-template` is omitted and you run in a terminal, `blank init` asks you to choose:
-- `latex`: LaTeX-like Typst starter
+- `latex`: TeXst-style Typst starter (generates `paper/aesthetics.typ` + `paper/paper.typ`)
 - `blank`: minimal empty Typst file
 
 ## Generated scaffold

@@ -32,7 +32,7 @@ def _build_parser() -> argparse.ArgumentParser:
     init_parser.add_argument(
         "--paper-template",
         choices=["latex", "blank"],
-        help="Paper template style for paper/paper.typ (latex or blank)",
+        help="Paper template style for paper/paper.typ (latex generates TeXst-style files)",
     )
 
     return parser
@@ -40,7 +40,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def _prompt_paper_template() -> str:
     print("Choose paper template for paper/paper.typ:")
-    print("1) latex (LaTeX-like layout) [recommended]")
+    print("1) latex (TeXst-style layout + aesthetics.typ) [recommended]")
     print("2) blank (empty starter file)")
     while True:
         choice = input("Enter 1 or 2 [1]: ").strip()

@@ -38,7 +38,6 @@ TEMPLATE_FILES: List[str] = [
     "analysis/scripts/30_results_main.R.tpl",
     "analysis/data/codebook.md.tpl",
     "paper/ref.bib.tpl",
-    "paper/aesthetics.typ.tpl",
     "analysis/output/figures/.gitkeep.tpl",
     "analysis/output/tables/.gitkeep.tpl",
     "analysis/output/results/.gitkeep.tpl",
@@ -56,6 +55,11 @@ TEMPLATE_FILES: List[str] = [
 PAPER_TEMPLATE_MAP = {
     "latex": ("paper/paper_latex.typ.tpl", "paper/paper.typ"),
     "blank": ("paper/paper_blank.typ.tpl", "paper/paper.typ"),
+}
+
+PAPER_EXTRA_TEMPLATES = {
+    "latex": ["paper/aesthetics.typ.tpl"],
+    "blank": [],
 }
 
 
@@ -79,8 +83,10 @@ def _output_path_from_template(template_path: str) -> Path:
 def _effective_templates(paper_template: str) -> List[str]:
     if paper_template not in PAPER_TEMPLATE_MAP:
         raise ValueError(f"Unsupported paper template: {paper_template}")
+    if paper_template not in PAPER_EXTRA_TEMPLATES:
+        raise ValueError(f"Unsupported paper template: {paper_template}")
     _paper_src, paper_out = PAPER_TEMPLATE_MAP[paper_template]
-    return TEMPLATE_FILES + [f"{paper_out}.tpl"]
+    return TEMPLATE_FILES + PAPER_EXTRA_TEMPLATES[paper_template] + [f"{paper_out}.tpl"]
 
 
 def plan_actions(

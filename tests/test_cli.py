@@ -14,6 +14,7 @@ def test_init_creates_scaffold(tmp_path: Path) -> None:
     assert rc == 0
     assert (target / "analysis/scripts/00_setup.R").exists()
     assert (target / "paper/paper.typ").exists()
+    assert (target / "paper/aesthetics.typ").exists()
     assert (target / ".codex/project.md").exists()
     assert (target / ".codex/install_repo_skills.sh").exists()
     assert (target / ".codex/install_curated_skills.sh").exists()
@@ -80,3 +81,4 @@ def test_init_blank_paper_template(tmp_path: Path) -> None:
 
     assert rc == 0
     assert (target / "paper/paper.typ").read_text(encoding="utf-8").strip() == "# Bare"
+    assert not (target / "paper/aesthetics.typ").exists()
