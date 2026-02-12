@@ -4,67 +4,19 @@
 
 ## Install
 
-**Recommended:**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/shusuke-ioku/blank/main/scripts/install_blank.sh | bash
-```
-
-**Alternative:** manually install:
-
-1) Install `pipx` (if missing):
+If you do not already have `pipx`, run this one-time setup:
 
 ```bash
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
-```
-
-2) Reload your shell:
-
-```bash
 exec $SHELL -l
 ```
 
-3) Install `blank` from PyPI:
+Install `blank`:
 
 ```bash
 pipx install blank-agentic-cli
-```
-
-**Verify:**
-
-```bash
 blank --help
-```
-
-## Troubleshooting
-
-If `blank --help` fails with `command not found`, run:
-
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-hash -r
-blank --help
-```
-
-Make it persistent:
-
-```bash
-# zsh
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zprofile
-
-# bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bash_profile
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-```
-
-Debug checks:
-
-```bash
-pipx list
-echo "$PATH" | tr ':' '\n' | rg "$HOME/.local/bin"
-which blank
-ls -l "$HOME/.local/bin/blank"
 ```
 
 ## Usage
