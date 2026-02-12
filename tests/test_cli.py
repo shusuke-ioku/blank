@@ -13,6 +13,11 @@ def test_init_creates_scaffold(tmp_path: Path) -> None:
 
     assert rc == 0
     assert (target / "analysis/scripts/00_setup.R").exists()
+    assert (target / "analysis/data").exists()
+    assert not (target / "analysis/data/base").exists()
+    assert not (target / "analysis/data/covariates").exists()
+    assert not (target / "analysis/data/rworg").exists()
+    assert not (target / "analysis/data/ocr_tables").exists()
     assert (target / "paper/paper.typ").exists()
     assert (target / "paper/aesthetics.typ").exists()
     assert (target / ".codex/project.md").exists()

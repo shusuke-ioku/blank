@@ -18,10 +18,7 @@ class ScaffoldConflictError(RuntimeError):
 
 DIRECTORIES: List[str] = [
     "analysis/scripts",
-    "analysis/data/base",
-    "analysis/data/covariates",
-    "analysis/data/rworg",
-    "analysis/data/ocr_tables",
+    "analysis/data",
     "analysis/output/figures",
     "analysis/output/tables",
     "analysis/output/results",
