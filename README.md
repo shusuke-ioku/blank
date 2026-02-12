@@ -87,7 +87,7 @@ By default, `paper/paper.typ` imports TeXst:
 TeXst repository:
 - https://github.com/shusuke-ioku/texst
 
-`paper/aesthetics.typ` is intentionally generated as a blank file so you can add custom style settings.
+`paper/aesthetics.typ` is generated as a blank file so you can add custom style settings.
 
 ## Generated scaffold
 
