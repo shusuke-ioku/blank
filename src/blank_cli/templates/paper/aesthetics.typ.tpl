@@ -143,7 +143,7 @@
     }
   }
   
-  set bibliography(style: "american-political-science-association-year.csl")
+  set bibliography(style: "american-political-science-association")
   show bibliography: set par(first-line-indent: 0em)
 
   set quote(block: true)
