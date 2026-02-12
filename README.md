@@ -4,13 +4,13 @@
 
 ## Install
 
-Recommended:
+**Recommended:**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/shusuke-ioku/blank/main/scripts/install_blank.sh | bash
 ```
 
-Alternative: Manually install:
+**Alternative:** manually install:
 
 1) Install `pipx` (if missing):
 
@@ -31,7 +31,7 @@ exec $SHELL -l
 pipx install blank-agentic-cli
 ```
 
-4) Verify:
+**Verify:**
 
 ```bash
 blank --help
