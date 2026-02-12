@@ -22,6 +22,10 @@ def test_init_creates_scaffold(tmp_path: Path) -> None:
     assert "Demo Project" in (target / "README.md").read_text(encoding="utf-8")
     assert "Introduction" in (target / "paper/paper.typ").read_text(encoding="utf-8")
     assert "Rules For Every Agent" in (target / ".codex/project.md").read_text(encoding="utf-8")
+    assert "MCP Tooling" in (target / ".codex/project.md").read_text(encoding="utf-8")
+    config = (target / ".codex/config.toml").read_text(encoding="utf-8")
+    assert "[mcp_servers.zotero]" in config
+    assert "[mcp_servers.pdf_reader]" in config
     mode = (target / ".codex/install_repo_skills.sh").stat().st_mode
     assert mode & stat.S_IXUSR
 

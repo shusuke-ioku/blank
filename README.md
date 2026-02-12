@@ -41,8 +41,22 @@ If `--paper-template` is omitted and you run in a terminal, `blank init` asks yo
 - `paper/`
 - `idea/`
 - `.codex/project.md` with default agent rules
+- `.codex/config.toml` with Zotero + PDF-reader MCP server setup
 - `.codex/skills/` starter skill set and install scripts
 - `.claude/` defaults
+
+## MCP setup (Zotero + PDF reader)
+
+Generated projects include:
+- `zotero` MCP server via `zotero-mcp`
+- `pdf_reader` MCP server via `uvx markitdown-mcp`
+
+Quick local checks:
+
+```bash
+zotero-mcp --help
+uvx markitdown-mcp --help
+```
 
 ## Development
 

@@ -14,6 +14,24 @@ Research workspace scaffolded by `blank` on {{today}}.
 - Brainstorm protocol: when asked to brainstorm, run adversarial idea generation and save retained ideas in `idea/`.
 - Update docs: update this file and `analysis/data/codebook.md` when their corresponding content changes.
 - Update structure map: when files/folders are added, removed, or moved, update the Directory Structure section.
+- Source tooling: use Zotero MCP for bibliography/search and PDF-reader MCP for extracting PDF content before summarizing evidence.
+
+## MCP Tooling
+
+Configured in `.codex/config.toml`:
+
+- `zotero`: local Zotero library access (`zotero-mcp`)
+- `pdf_reader`: PDF/text extraction (`uvx markitdown-mcp`)
+
+Recommended checks:
+
+```bash
+# confirm Zotero MCP command exists
+zotero-mcp --help
+
+# confirm PDF reader MCP command exists
+uvx markitdown-mcp --help
+```
 
 ## Directory Structure
 
