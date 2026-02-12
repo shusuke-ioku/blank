@@ -1,34 +1,59 @@
-#import "./aesthetics.typ": paper, theorem, proof, caption_with_note
+#import "aesthetics.typ": paper, nneq, caption_note, table_note, theorem, proof, prop, lem, rem, ass, cmain, csub, caption_with_note
 
 #show: doc => paper(
-  title: [{{project_name}}],
-  subtitle: [Optional Subtitle],
+  title: [Title],
+  subtitle: [Subtitle],
   authors: (
-    (name: [Author One]),
-    (name: [Author Two]),
+    (
+      name: text()[Author Name#footnote(numbering:"*")[Affiliation]],
+    ),
   ),
   date: datetime.today().display("[month repr:long] [day], [year]"),
-  abstract: [
-    Write a concise abstract summarizing your research question, method, and findings.
+  abstract:
+  text()[
+    This is the abstract for the paper. It summarizes the key objectives, findings, and significance of the research. The abstract provides a succinct overview, including the methodology and principal results, allowing readers to quickly grasp the purpose and contributions of the work. Replace this placeholder with your full abstract describing the context, main outcomes, and insights presented in the paper.
   ],
   doc,
 )
 
-#heading(level: 1)[Introduction]
+#heading(outlined: false, level: 1)[Introduction]
 
-Start your paper here.
+This is some placeholder text for the introduction. You can replace this with your actual content.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in quam eu magna egestas dictum.
+Aliquam erat volutpat. Nulla facilisi. Pellentesque cursus bibendum magna, quis tincidunt quam blandit sed.
+Donec dapibus, nisi nec laoreet egestas, sem arcu varius leo, eget cursus nisi erat vitae nibh @tab:sample_table.
 
-#heading(level: 1)[Main Result]
-
-#theorem[
-State your main theorem or proposition.
-]
-
-#proof[
-Add your proof or argument.
-]
+#nneq($
+  alpha = beta + gamma
+$)
 
 #figure(
+  placement: none,
+  block(width: 80%)[
+  //   #columns(
+  //     gutter: 2em,
+  //     [
+  //       #image(
+  //         "",
+  //         width: 100%,
+  //         alt: "Sample Photo 1"
+  //       )
+  //     ],
+  //     [
+  //       #image(
+  //         "",
+  //         width: 100%,
+  //         alt: "Sample Photo 2"
+  //       )
+  //     ]
+  //   )
+  ],
+  caption: [Sample figure with two column photos]
+)
+
+
+#figure(
+  placement: none,
   block(width: 100%)[
     #set text(size: 0.8em)
     #table(
@@ -37,29 +62,61 @@ Add your proof or argument.
       inset: (x: 5pt, y: 4pt),
       stroke: none,
       table.hline(stroke: 1.2pt),
-      [Outcome:], table.cell(colspan: 6)[_Dependent Variable Placeholder_],
-      [Model:], [(1)], [(2)], [(3)], [(4)], [(5)], [(6)],
-      [], [+12 months], [+24 months], [+36 months], [+48 months], [+60 months], [All periods],
+      [Sample Outcome:], table.cell(colspan: 6)[_Sample Measure per Unit_],
+      [Sample Model:], [(A)], [(B)], [(C)], [(D)], [(E)], [(F)],
       table.hline(stroke: 0.7pt),
-      [*Main Treatment × Post*], [$0.173^(**)$ #linebreak() (0.061)], [$0.192^(**)$ #linebreak() (0.074)], [$0.214^(**)$ #linebreak() (0.088)], [$0.228^(**)$ #linebreak() (0.095)], [$0.205^(*)$ #linebreak() (0.108)], [$0.241^(**)$ #linebreak() (0.099)],
-      [Control 1 × Post], [$-0.041$ #linebreak() (0.052)], [$-0.028$ #linebreak() (0.061)], [$-0.017$ #linebreak() (0.069)], [$-0.022$ #linebreak() (0.075)], [$-0.015$ #linebreak() (0.083)], [$-0.009$ #linebreak() (0.080)],
-      [Control 2 × Post], [0.067 #linebreak() (0.049)], [0.072 #linebreak() (0.058)], [0.081 #linebreak() (0.066)], [0.076 #linebreak() (0.071)], [0.089 #linebreak() (0.079)], [0.095 #linebreak() (0.076)],
+      [Sample Effect 1], [$1.1111^(**)$ #linebreak() (0.0101)], [$1.2222^(**)$ #linebreak() (0.0112)], [$1.3333^(**)$ #linebreak() (0.0123)], [$1.4444^(*)$ #linebreak() (0.0134)], [$1.5555^(**)$ #linebreak() (0.0145)], [$1.6666^(**)$ #linebreak() (0.0156)],
+      [Sample Effect 2], [$2.1111^(***)$ #linebreak() (0.0165)], [$2.2222^(***)$ #linebreak() (0.0170)], [$2.3333^(***)$ #linebreak() (0.0181)], [$2.4444^(***)$ #linebreak() (0.0192)], [$2.5555^(***)$ #linebreak() (0.0203)], [$2.6666^(***)$ #linebreak() (0.0214)],
+      [Sample Covariate 1], [], [], [], [0.1010 #linebreak() (0.0222)], [$-0.2020$ #linebreak() (0.0233)], [$-0.3030$ #linebreak() (0.0244)],
+      [Sample Covariate 2], [], [], [], [$-0.1111$ #linebreak() (0.0137)], [0.2222 #linebreak() (0.0148)], [0.3333 #linebreak() (0.0159)],
+      [Sample Covariate 3], [], [], [], [$-0.4444$ #linebreak() (0.0162)], [$-0.5555$ #linebreak() (0.0173)], [$-0.6666$ #linebreak() (0.0184)],
+      [Sample Group 4], [], [], [], [0.5050 #linebreak() (0.0195)], [0.6060 #linebreak() (0.0206)], [0.7070 #linebreak() (0.0217)],
       table.hline(stroke: 0.4pt),
-      [Prefecture FE], [Yes], [Yes], [Yes], [Yes], [Yes], [Yes],
-      [Month FE], [Yes], [Yes], [Yes], [Yes], [Yes], [Yes],
+      [Sample Mean], [1.111], [1.222], [1.333], [1.444], [1.555], [1.666],
       table.hline(stroke: 0.4pt),
-      [Observations], [1,250], [1,780], [2,310], [2,840], [3,370], [3,920],
-      [$R^2$], [0.912], [0.918], [0.924], [0.927], [0.931], [0.934],
+      [_Sample Controls_], [], [], [], [], [], [],
+      [Sample FE 1], [Yes], [Yes], [Yes], [Yes], [Yes], [Yes],
+      [Sample FE 2], [Yes], [Yes], [Yes], [Yes], [Yes], [Yes],
+      table.hline(stroke: 0.4pt),
+      [_Sample Fit Statistics_], [], [], [], [], [], [],
+      [Sample Observations], [123], [234], [345], [456], [567], [678],
+      [$R^2$], [0.777], [0.888], [0.999], [0.555], [0.666], [0.444],
+      [Within $R^2$], [0.111], [0.222], [0.333], [0.444], [0.555], [0.666],
       table.hline(stroke: 1.2pt),
+      table.cell(colspan: 7, table_note([Sample note for errors in round brackets.#linebreak()Signif. Codes: $.^(***)$: 0.001, $.^(**)$: 0.01, $.^(*)$: 0.05, $.^(+)$: 0.1.]))
     )
   ],
-  caption: caption_with_note([Table Title Placeholder], [Table note placeholder. Replace with model description, fixed effects, standard-error details, and significance-code conventions.]),
-)<tab:sample_coeff>
+  caption: caption_with_note([Sample Title], [This is a sample caption for the table, describing its structure and what the numbers represent. Replace as needed.]),
+)<tab:sample_table>
 
-#heading(level: 1)[Appendix]
+#heading(outlined: false, numbering: none, level: 1)[References]
 
-#outline(title: [Contents])
+#bibliography(
+  "ref.bib",
+  style: "american-political-science-association",
+  title: none
+)
 
-#heading(level: 2)[Additional Material]
+#pagebreak()
 
-Place supplementary derivations, robustness checks, or extended tables here.
+#counter(figure).update(0)
+#set figure(numbering: (..n) => "A." + numbering("1", n.at(0)))
+
+#counter(heading).update(0)
+#set heading(
+  numbering: "A.1.",
+  supplement: "Appendix"
+)
+
+#align(center)[
+  #smallcaps(text(1.2em)[*Appendix*])
+]
+
+#show outline.entry: it => link(
+  it.element.location(),
+  it.indented(it.prefix(), it.inner()),
+)
+#outline()
+
+#pagebreak()
+#heading(level: 1)[Omitted Empirical Results]
