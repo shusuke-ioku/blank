@@ -81,7 +81,7 @@ blank init my-project --paper-template blank
 ```
 
 If `--paper-template` is omitted and you run in a terminal, `blank init` asks you to choose:
-- `latex`: TeXst-style Typst starter (generates `paper/aesthetics.typ` + `paper/paper.typ`)
+- `latex`: latex-like Typst starter (generates `paper/aesthetics.typ` + `paper/paper.typ`)
 - `blank`: minimal empty Typst file
 
 ## Generated scaffold
