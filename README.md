@@ -4,52 +4,49 @@
 
 ## Install
 
-Recommended (handles `pipx ensurepath`, install, and verification):
+### Recommended (most likely to succeed on first try):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/shusuke-ioku/blank/main/scripts/install_blank.sh | bash
 ```
 
-From GitHub package source (same installer with package override):
+### Manual install (fallback):
+
+1) Install `pipx` (if missing):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/shusuke-ioku/blank/main/scripts/install_blank.sh | bash -s -- git+https://github.com/shusuke-ioku/blank.git
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
 ```
 
-From a local clone:
+2) Reload your shell:
 
 ```bash
-bash scripts/install_blank.sh
-```
-
-First-time `pipx` setup (one-time per machine):
-
-```bash
-pipx ensurepath
 exec $SHELL -l
 ```
 
-From PyPI (after release):
+3) Install `blank` from PyPI:
 
 ```bash
 pipx install blank-agentic-cli
 ```
 
-From GitHub:
-
-```bash
-pipx install git+https://github.com/shusuke-ioku/blank.git
-```
-
-## Post-install check
+4) Verify:
 
 ```bash
 blank --help
 ```
 
-If you see `bash: blank: command not found`, `pipx` likely installed correctly but your shell PATH is missing `~/.local/bin`.
+### Alternative installs:
 
-Quick fix for current shell:
+```bash
+# GitHub package
+pipx install git+https://github.com/shusuke-ioku/blank.git
+```
+
+## Troubleshooting
+
+If `blank --help` fails with `command not found`, run:
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -57,10 +54,10 @@ hash -r
 blank --help
 ```
 
-Persist it:
+Make it persistent:
 
 ```bash
-# zsh (default on modern macOS)
+# zsh
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zprofile
 
 # bash
@@ -68,10 +65,13 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bash_profile
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 ```
 
-Optional:
+Debug checks:
 
 ```bash
-pipx ensurepath
+pipx list
+echo "$PATH" | tr ':' '\n' | rg "$HOME/.local/bin"
+which blank
+ls -l "$HOME/.local/bin/blank"
 ```
 
 ## Usage
