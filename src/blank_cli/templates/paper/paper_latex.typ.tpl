@@ -1,4 +1,4 @@
-#import "@preview/texst:0.1.0": paper, nneq, caption-note, table-note, theorem, proof, prop, lem, rem, ass, cmain, csub, caption-with-note
+#import "@preview/texst:{{texst_version}}": paper, nneq, caption-note, table-note, theorem, proof, prop, lem, rem, ass, cmain, csub, caption-with-note
 
 #show: doc => paper(
   title: [Title],

@@ -6,6 +6,7 @@ from importlib import resources
 from pathlib import Path
 
 from .scaffold import ScaffoldConflictError, apply_actions, plan_actions
+from .texst import resolve_latest_texst_version
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -35,6 +36,7 @@ def _build_parser() -> argparse.ArgumentParser:
 def _command_init(args: argparse.Namespace) -> int:
     target_dir = Path(args.target_dir).expanduser().resolve()
     project_name = args.project_name or target_dir.name
+    texst_version = resolve_latest_texst_version()
     include_agents = not args.no_agents
 
     templates_dir = resources.files("blank_cli") / "templates"
@@ -47,6 +49,7 @@ def _command_init(args: argparse.Namespace) -> int:
             target_dir=target_dir,
             templates_dir=templates_path,
             project_name=project_name,
+            texst_version=texst_version,
             include_agents=include_agents,
             force=args.force,
         )
@@ -59,6 +62,7 @@ def _command_init(args: argparse.Namespace) -> int:
         target_dir=target_dir,
         templates_dir=templates_path,
         project_name=project_name,
+        texst_version=texst_version,
         include_agents=include_agents,
         dry_run=args.dry_run,
     )

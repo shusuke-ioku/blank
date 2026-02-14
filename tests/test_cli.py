@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import stat
 from pathlib import Path
 
@@ -30,7 +31,7 @@ def test_init_creates_scaffold(tmp_path: Path) -> None:
     assert (target / ".claude/settings.local.json").exists()
     assert "Demo Project" in (target / "README.md").read_text(encoding="utf-8")
     paper = (target / "paper/paper.typ").read_text(encoding="utf-8")
-    assert '@preview/texst:0.1.0' in paper
+    assert re.search(r'@preview/texst:\d+\.\d+\.\d+', paper)
     assert "Introduction" in paper
     aesthetics = (target / "paper/aesthetics.typ").read_text(encoding="utf-8")
     assert "intentionally blank" in aesthetics

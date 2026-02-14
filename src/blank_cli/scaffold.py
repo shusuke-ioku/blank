@@ -74,17 +74,23 @@ def _effective_templates() -> List[str]:
     return TEMPLATE_FILES + [PAPER_TEMPLATE_OUT]
 
 
+def _template_variables(project_name: str, texst_version: str) -> Dict[str, str]:
+    return {
+        "project_name": project_name,
+        "today": str(date.today()),
+        "texst_version": texst_version,
+    }
+
+
 def plan_actions(
     target_dir: Path,
     templates_dir: Path,
     project_name: str,
+    texst_version: str,
     include_agents: bool,
     force: bool,
 ) -> List[ScaffoldAction]:
-    variables = {
-        "project_name": project_name,
-        "today": str(date.today()),
-    }
+    variables = _template_variables(project_name=project_name, texst_version=texst_version)
     actions: List[ScaffoldAction] = []
 
     for rel_dir in DIRECTORIES:
@@ -130,13 +136,11 @@ def apply_actions(
     target_dir: Path,
     templates_dir: Path,
     project_name: str,
+    texst_version: str,
     include_agents: bool,
     dry_run: bool,
 ) -> Dict[str, int]:
-    variables = {
-        "project_name": project_name,
-        "today": str(date.today()),
-    }
+    variables = _template_variables(project_name=project_name, texst_version=texst_version)
     counts = {
         "created_dirs": 0,
         "created_files": 0,

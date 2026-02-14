@@ -30,10 +30,10 @@ blank init my-project --force
 blank init my-project --no-agents
 ```
 
-By default, `paper/paper.typ` imports TeXst:
+By default, `blank init` resolves the latest TeXst release and `paper/paper.typ` imports that version:
 
 ```typst
-#import "@preview/texst:0.1.0": paper, nneq, caption-note, table-note, theorem, proof, prop, lem, rem, ass, cmain, csub, caption-with-note
+#import "@preview/texst:<latest-version>": paper, nneq, caption-note, table-note, theorem, proof, prop, lem, rem, ass, cmain, csub, caption-with-note
 ```
 
 TeXst repository:
